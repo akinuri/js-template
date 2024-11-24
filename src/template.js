@@ -33,13 +33,11 @@ function getTemplate(templateName, parentEl) {
  * @returns {Element[]} A list of custom elements with a template name as the tag,
  * or a normal element with a data-template="name" attribute.
  */
-function getTemplateInstancePlaceholders(templateName, parentEl) {
+function getPlaceholdersByTemplateName(templateName, parentEl) {
     parentEl ??= document.body;
-    let placeholders = Array.from(parentEl.querySelectorAll(templateName));
-    placeholders = placeholders.concat(
-        Array.from(parentEl.querySelectorAll(`[data-template-name=${templateName}]`))
+    return Array.from(
+        parentEl.querySelectorAll(`${templateName}, [data-template-name=${templateName}]`)
     );
-    return placeholders;
 }
 
 // #endregion
