@@ -29,6 +29,9 @@
             templates = getTemplates();
             console.log("templates:", templates);
 
+            placeholders = getPlaceholders();
+            console.log("placeholders:", placeholders);
+
             for (const templateName in templates) {
                 console.log("placeholder:", getPlaceholdersByTemplateName(templateName));
             }

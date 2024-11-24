@@ -23,7 +23,15 @@ function getTemplates(parentEl) {
  * @returns {HTMLTemplateElement}
  */
 function getTemplate(templateName, parentEl) {
+    if (!templateName) {
+        return null;
+    }
     return (parentEl ?? document.body).querySelector(`template[data-name=${templateName}]`);
+}
+
+function getPlaceholders(parentEl) {
+    parentEl ??= document.body;
+    return Array.from(parentEl.querySelectorAll(`[data-template-name], [data-template-data]`));
 }
 
 /**
@@ -37,6 +45,13 @@ function getPlaceholdersByTemplateName(templateName, parentEl) {
     parentEl ??= document.body;
     return Array.from(
         parentEl.querySelectorAll(`${templateName}, [data-template-name=${templateName}]`)
+    );
+}
+
+function getPlaceholderTemplateName(placeholderEl) {
+    return (
+        placeholderEl.dataset.templateName ??
+        (placeholderEl instanceof HTMLUnknownElement ? placeholderEl.tagName.toLowerCase() : null)
     );
 }
 
@@ -83,7 +98,7 @@ function evaluateExpression(expression, context) {
  * @param {string} htmlString The processed HTML string.
  * @returns {Element} The resulting DOM element.
  */
-function htmlStringToElement(htmlString) {
+function htmlFromString(htmlString) {
     const template = document.createElement("template");
     template.innerHTML = htmlString.trim();
     return template.content.firstChild;
@@ -105,18 +120,15 @@ function replacePlaceholderWithInstance(placeholder, template) {
     }
     let templateHTML = template.content.firstElementChild.outerHTML;
     templateHTML = replaceTemplateExpressions(templateHTML, data);
-    let instance = htmlStringToElement(templateHTML);
+    let instance = htmlFromString(templateHTML);
     placeholder.replaceWith(instance);
 }
 
 function renderTemplateInstances(parent) {
     parent ??= document.body;
-    let templates = getTemplates(parent);
-    for (const [templateName, template] of Object.entries(templates)) {
-        let placeholders = getTemplateInstancePlaceholders(templateName, parent);
-        for (const placeholder of placeholders) {
-            replacePlaceholderWithInstance(placeholder, template);
-        }
+    let placeholders = getPlaceholders(parent);
+    for (const placeholder of placeholders) {
+        replacePlaceholderWithInstance(placeholder);
     }
 }
 
