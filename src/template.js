@@ -108,20 +108,37 @@ function htmlFromString(htmlString) {
 
 // #region ==================== SWAP
 
+function buildInstanceFromPlaceholder(placeholderEl) {
+    let instance = null;
+    if (!placeholderEl) {
+        return instance;
+    }
+    let template = getTemplate(getPlaceholderTemplateName(placeholderEl));
+    if (!template) {
+        return instance;
+    }
+    let data = placeholderEl.dataset.templateData ?? {};
+    if (typeof data == "string") {
+        data = JSON.parse(data);
+    }
+    let templateString = template.content.firstElementChild.outerHTML;
+    templateString = templateString.replace("&gt;", ">");
+    templateString = templateString.replace("&lt;", "<");
+    templateString = replaceTemplateExpressions(templateString, data);
+    instance = htmlFromString(templateString);
+    return instance;
+}
+
 /**
  * Creates an instance from the template and replaces the placeholder with the instance.
  * @param {Element} placeholder
  * @param {HTMLTemplateElement} template
  */
-function replacePlaceholderWithInstance(placeholder, template) {
-    let data = placeholder.dataset.templateData ?? {};
-    if (typeof data == "string") {
-        data = JSON.parse(data);
+function replacePlaceholderWithInstance(placeholder) {
+    let instance = buildInstanceFromPlaceholder(placeholder);
+    if (placeholder && instance) {
+        placeholder.replaceWith(instance);
     }
-    let templateHTML = template.content.firstElementChild.outerHTML;
-    templateHTML = replaceTemplateExpressions(templateHTML, data);
-    let instance = htmlFromString(templateHTML);
-    placeholder.replaceWith(instance);
 }
 
 function renderTemplateInstances(parent) {
