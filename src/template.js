@@ -59,6 +59,11 @@ function getPlaceholderTemplateName(placeholderEl) {
 
 // #region ==================== RENDER
 
+let writeBag = [];
+function write(text) {
+    writeBag.push(text);
+}
+
 /**
  * Renders the expressions in the template string.
  * @param {string} templateString Raw HTML string with expressions.
@@ -69,7 +74,16 @@ function replaceTemplateExpressions(templateString, data = {}) {
     let expressionPattern = /{{\s*(.*?)\s*}}/gs;
     return templateString.replace(expressionPattern, (match, expression) => {
         try {
-            return evaluateExpression(expression, data);
+            writeBag = [];
+            let text = evaluateExpression(expression, data);
+            if (text == undefined) {
+                text = "";
+            }
+            if (writeBag.length) {
+                text += writeBag.join("");
+                writeBag = [];
+            }
+            return text;
         } catch (error) {
             console.warn(`Error evaluating expression: ${expression}`, error);
             return "";

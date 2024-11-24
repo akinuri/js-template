@@ -16,10 +16,24 @@
         </button>
     </template>
 
+    <template data-name="mylist">
+        <div class="bg-slate-200 px-3 py-2 rounded">
+            This is a {{ name }} list.
+            <ul class="list-disc pl-6">
+                {{ items.forEach(item => write(`<li>${item}</li>`)) }}
+            </ul>
+        </div>
+    </template>
+
     <div class="flex gap-4 p-4 rounded border border-dashed border-slate-500">
         <div data-template-name="mybutton" data-template-data='{"text":"View"}'></div>
         <div data-template-name="mybutton" data-template-data='{"text":"Edit"}'></div>
         <mybutton data-template-data='{"text":"Delete"}'></mybutton>
+    </div>
+
+    <div class="flex gap-4 p-4 rounded border border-dashed border-slate-500 mt-6">
+        <div data-template-name="mylist" data-template-data='{"name": "color", "items":["red", "green", "blue"]}'></div>
+        <mylist data-template-data='{"name": "random", "items":["foo", "bar", "baz"]}'></mylist>
     </div>
 
     <script src="../src/template.js"></script>
