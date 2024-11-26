@@ -150,7 +150,15 @@ function buildInstanceFromPlaceholder(placeholderEl) {
         if (["data-template", "data-template-name", "data-template-data"].includes(attr.name)) {
             continue;
         }
-        instance.setAttribute(attr.name, attr.value);
+        if (attr.name == "class") {
+            if (instance.className.length) {
+                instance.className += " " + attr.value;
+            } else {
+                instance.setAttribute(attr.name, attr.value);
+            }
+        } else {
+            instance.setAttribute(attr.name, attr.value);
+        }
     }
     return instance;
 }
