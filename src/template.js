@@ -31,9 +31,11 @@ function getTemplate(templateName, parentEl) {
 
 function getPlaceholders(parentEl) {
     parentEl ??= document.body;
-    return Array.from(
-        parentEl.querySelectorAll(`[data-template], [data-template-name], [data-template-data]`)
-    );
+    let placeholders = [];
+    for (const templateName in getTemplates()) {
+        placeholders = placeholders.concat(getPlaceholdersByTemplateName(templateName));
+    }
+    return placeholders;
 }
 
 /**
