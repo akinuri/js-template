@@ -146,6 +146,12 @@ function buildInstanceFromPlaceholder(placeholderEl) {
     templateString = templateString.replace("&lt;", "<");
     templateString = replaceTemplateExpressions(templateString, data);
     instance = htmlFromString(templateString);
+    for (const attr of Array.from(placeholderEl.attributes)) {
+        if (["data-template", "data-template-name", "data-template-data"].includes(attr.name)) {
+            continue;
+        }
+        instance.setAttribute(attr.name, attr.value);
+    }
     return instance;
 }
 
