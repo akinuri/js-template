@@ -33,7 +33,7 @@ function getPlaceholders(parentEl) {
     parentEl ??= document.body;
     let placeholders = [];
     for (const templateName in getTemplates()) {
-        placeholders = placeholders.concat(getPlaceholdersByTemplateName(templateName));
+        placeholders = placeholders.concat(getPlaceholdersByTemplateName(templateName, parentEl));
     }
     return placeholders;
 }
