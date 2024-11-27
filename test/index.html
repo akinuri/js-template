@@ -17,13 +17,13 @@
     </template>
 
     <template data-name="myli">
-        <li class="hover:underline hover:text-blue-600">{{ content }}</li>
+        <li class="hover:underline hover:text-blue-600 hover:cursor-pointer active:text-blue-900">{{ content }}</li>
     </template>
 
     <template data-name="mylist">
         <div class="bg-slate-200 px-3 py-2 rounded">
             This is a {{ name }} list.
-            <ul class="list-disc pl-6">
+            <ul class="list-disc pl-6 mt-2">
                 <myli>default item</myli>
                 {{ items.forEach(item => write(`<myli>${item}</myli>`)) }}
             </ul>
