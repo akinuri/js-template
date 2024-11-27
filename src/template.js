@@ -182,9 +182,9 @@ function replacePlaceholderWithInstance(placeholder) {
     }
 }
 
-function renderTemplateInstances(parent) {
-    parent ??= document.body;
-    let placeholders = getPlaceholders(parent);
+function renderTemplateInstances(parentEl) {
+    parentEl ??= document.body;
+    let placeholders = getPlaceholders(parentEl);
     for (const placeholder of placeholders) {
         replacePlaceholderWithInstance(placeholder);
     }
