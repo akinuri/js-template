@@ -16,12 +16,16 @@
         </button>
     </template>
 
+    <template data-name="myli">
+        <li class="hover:underline hover:text-blue-600">{{ text }}</li>
+    </template>
+
     <template data-name="mylist">
         <div class="bg-slate-200 px-3 py-2 rounded">
             This is a {{ name }} list.
             <ul class="list-disc pl-6">
-                <li>default item</li>
-                {{ items.forEach(item => write(`<li>${item}</li>`)) }}
+                <myli data-template-data='{"text":"default item"}'></myli>
+                {{ items.forEach(item => write(`<myli data-template-data='{"text":"${item}"}'></myli>`)) }}
             </ul>
         </div>
     </template>

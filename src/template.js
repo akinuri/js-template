@@ -166,6 +166,7 @@ function buildInstanceFromPlaceholder(placeholderEl) {
             instance.setAttribute(attr.name, attr.value);
         }
     }
+    renderTemplateInstances(instance);
     return instance;
 }
 
