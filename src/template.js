@@ -147,6 +147,7 @@ function buildInstanceFromPlaceholder(placeholderEl) {
     if (typeof data == "string") {
         data = JSON.parse(data);
     }
+    data.content = placeholderEl.innerHTML;
     let templateString = template.content.firstElementChild.outerHTML;
     templateString = templateString.replace("&gt;", ">");
     templateString = templateString.replace("&lt;", "<");
