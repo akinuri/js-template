@@ -38,6 +38,16 @@ function getPlaceholders(parentEl) {
     return placeholders;
 }
 
+function isPlaceholder(element) {
+    let templateName = getPlaceholderTemplateName(element);
+    let query = `[data-template=${templateName}], [data-template-name=${templateName}]`;
+    if (element.matches(query)) {
+        return true;
+    }
+    let templates = getTemplates();
+    return templateName in templates;
+}
+
 /**
  * Gets the placeholder elements that reference a template via attributes.
  * @param {string} templateName
@@ -58,7 +68,7 @@ function getPlaceholderTemplateName(placeholderEl) {
     return (
         placeholderEl.dataset.templateName ??
         placeholderEl.dataset.template ??
-        (placeholderEl instanceof HTMLUnknownElement ? placeholderEl.tagName.toLowerCase() : null)
+        placeholderEl.tagName.toLowerCase()
     );
 }
 
@@ -161,6 +171,9 @@ function buildInstanceFromTemplate(template, data = {}, attrs = {}) {
     templateString = templateString.replace("&lt;", "<");
     templateString = replaceTemplateExpressions(templateString, data);
     instance = htmlFromString(templateString);
+    if (isPlaceholder(instance)) {
+        instance = buildInstanceFromPlaceholder(instance);
+    }
     applyAttributes(instance, attrs);
     renderTemplateInstances(instance);
     return instance;
