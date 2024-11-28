@@ -151,10 +151,9 @@ function applyAttributes(element, attributes, except = []) {
 
 // #region ==================== SWAP
 
-function buildInstanceFromTemplateName(templateName, data = {}, attrs = {}) {
+function buildInstanceFromTemplate(template, data = {}, attrs = {}) {
     let instance = null;
-    let template = getTemplate(templateName);
-    if (!template) {
+    if (!template || !template.matches("template[data-name]:not([data-name=''])")) {
         return instance;
     }
     let templateString = template.content.firstElementChild.outerHTML;
@@ -165,6 +164,10 @@ function buildInstanceFromTemplateName(templateName, data = {}, attrs = {}) {
     applyAttributes(instance, attrs);
     renderTemplateInstances(instance);
     return instance;
+}
+
+function buildInstanceFromTemplateName(templateName, data = {}, attrs = {}) {
+    return buildInstanceFromTemplate(getTemplate(templateName), data, attrs);
 }
 
 function buildInstanceFromPlaceholder(placeholderEl) {
