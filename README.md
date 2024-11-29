@@ -8,7 +8,7 @@ A lightweight JavaScript utility for managing and rendering HTML templates with 
 
 ```html
 <template data-name="greeting">
-  <div>Hello, {{ name }}!</div>
+  <div>Hello, {{ content }}!</div>
 </template>
 ```
 
