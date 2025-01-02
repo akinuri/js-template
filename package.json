@@ -1,0 +1,8 @@
+{
+    "name": "js-template",
+    "version": "0.1.0",
+    "devDependencies": {
+        "grunt": "^1.6.1",
+        "grunt-contrib-concat": "^2.1.0"
+    }
+}
