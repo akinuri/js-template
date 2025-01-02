@@ -42,6 +42,9 @@ async function loadTemplatesFromUrl(url, useNewContainer = true) {
         document.body.append(container);
     } else {
         const container = document.querySelector(".template-container");
+        if (!container) {
+            throw new Error("No .template-container found.");
+        }
         container.innerHTML += html;
     }
 }
