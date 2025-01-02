@@ -25,3 +25,23 @@ function applyAttributes(element, attributes, except = []) {
         }
     }
 }
+
+async function fetchTemplatesFromUrl(url) {
+    return fetch(url)
+        .then((response) => response.text())
+        .then((html) => html);
+}
+
+async function loadTemplatesFromUrl(url, useNewContainer = true) {
+    let html = await fetchTemplatesFromUrl(url);
+    if (useNewContainer) {
+        const container = document.createElement("div");
+        container.hidden = true;
+        container.classList.add("template-container");
+        container.innerHTML = html;
+        document.body.append(container);
+    } else {
+        const container = document.querySelector(".template-container");
+        container.innerHTML += html;
+    }
+}
