@@ -8,6 +8,13 @@ module.exports = function (grunt) {
         concat: {
             options: {
                 separator: "\n\n",
+                process: function (src, filepath) {
+                    let filename = filepath.split("/").pop();
+                    filename = filename.replace(".js", "");
+                    filename = filename.toUpperCase();
+                    src = src.trim();
+                    return `// #region ==================== ${filename}\n\n${src}\n\n// #endregion`;
+                },
             },
             dist: {
                 src: [
