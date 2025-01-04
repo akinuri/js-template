@@ -1,6 +1,6 @@
 /**
  * Gets the template elements that has non-empty "data-name" attribute.
- * @param {Element?} parentEl The parent element to search for the templates. Defaults to `document.body` if not provided.
+ * @param {HTMLElement?} parentEl The parent element to search for the templates. Defaults to `document.body` if not provided.
  * @returns {Object.<string, HTMLTemplateElement>} The templates with the "data-name" attribute as the key.
  */
 function getTemplates(parentEl) {
@@ -16,12 +16,13 @@ function getTemplates(parentEl) {
 /**
  * Gets the template element with the specified name as the "data-name" attribute value.
  * @param {string} templateName The name of the template to search for.
- * @param {Element?} parentEl The parent element to search for the template.
+ * @param {HTMLElement?} parentEl The parent element to search for the template.
  * @returns {HTMLTemplateElement|null} The template element with the specified name or `null` if not found.
  */
 function getTemplateByName(templateName, parentEl) {
     if (!templateName) {
         return null;
     }
-    return (parentEl ?? document.body).querySelector(`template[data-name="${templateName}"]`);
+    parentEl ??= document.body;
+    return parentEl.querySelector(`template[data-name="${templateName}"]`);
 }
