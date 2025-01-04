@@ -1,39 +1,65 @@
 /**
- * Converts a raw HTML string into an element.
- * @param {string} htmlString The processed HTML string.
- * @returns {Element} The resulting DOM element.
+ * Converts an HTML string into an array of DOM elements.
+ *
+ * @param {string} htmlString - The HTML string to convert.
+ * @returns {Array<Node|HTMLElement>} An array of child nodes/elements of the created DOM element.
  */
-function htmlFromString(htmlString) {
+function htmlFromString(htmlString, onlyElements = false) {
     const template = document.createElement("template");
     template.innerHTML = htmlString.trim();
-    return template.content.firstChild;
+    let nodes = Array.from(template.content.childNodes);
+    if (onlyElements) {
+        nodes = nodes.filter((node) => node.nodeType === Node.ELEMENT_NODE);
+    }
+    return nodes;
 }
 
+/**
+ * Applies a set of attributes to a given DOM element, with an option to exclude specific attributes.
+ *
+ * @param {HTMLElement} element - The DOM element to which the attributes will be applied.
+ * @param {NamedNodeMap} attributes - Attributes object of an element.
+ * @param {Array<string>} [except=[]] - An optional array of attribute names to be excluded from being applied.
+ */
 function applyAttributes(element, attributes, except = []) {
-    for (const attr of Array.from(attributes)) {
+    for (const attr of attributes) {
         if (except.includes(attr.name)) {
             continue;
         }
-        if (attr.name == "class") {
-            if (element.className.length) {
-                element.className += " " + attr.value;
-            } else {
-                element.setAttribute(attr.name, attr.value);
-            }
+        if (attr.name === "class") {
+            element.classList.add(...attr.value.split(" "));
         } else {
             element.setAttribute(attr.name, attr.value);
         }
     }
 }
 
+/**
+ * Fetches HTML templates from the specified URL.
+ *
+ * @async
+ * @param {string} url - The URL to fetch the templates from.
+ * @returns {Promise<string>} A promise that resolves to the HTML content as a string.
+ * @throws Throws an error if the HTTP response is not ok.
+ */
 async function fetchTemplatesFromUrl(url) {
-    return fetch(url)
-        .then((response) => response.text())
-        .then((html) => html);
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const html = await response.text();
+    return html;
 }
 
+/**
+ * Loads HTML templates from a given URL and inserts them into the document.
+ *
+ * @param {string} url - The URL to fetch the templates from.
+ * @param {boolean} [useNewContainer=true] - Whether to use a new container for the templates or append to an existing one.
+ * @throws Will throw an error if no .template-container is found when useNewContainer is false.
+ */
 async function loadTemplatesFromUrl(url, useNewContainer = true) {
-    let html = await fetchTemplatesFromUrl(url);
+    const html = await fetchTemplatesFromUrl(url);
     if (useNewContainer) {
         const container = document.createElement("div");
         container.hidden = true;

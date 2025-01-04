@@ -6,7 +6,7 @@ function buildInstanceFromTemplate(template, data = {}, attrs = {}) {
     templateString = templateString.replace("&gt;", ">");
     templateString = templateString.replace("&lt;", "<");
     templateString = replaceTemplateExpressions(templateString, data);
-    let instance = htmlFromString(templateString);
+    let instance = htmlFromString(templateString, true)[0];
     if (isPlaceholder(instance)) {
         instance = buildInstanceFromPlaceholder(instance);
     }
