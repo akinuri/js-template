@@ -35,6 +35,29 @@ function applyAttributes(element, attributes, except = []) {
 }
 
 /**
+ * Replaces a target DOM element with a new set of DOM elements.
+ *
+ * @param {HTMLElement} targetEl - The target element to be replaced.
+ * @param {Array<Element>|Element} newEls - An array of new elements to replace the target element.
+ */
+function replaceElement(targetEl, newEls) {
+    // NOTE: used Element instead of HTMLElement to allow for svg elements
+    // TODO: might need to switch to Element in other places as well
+    if (!Array.isArray(newEls) && newEls instanceof Element) {
+        newEls = [newEls];
+    }
+    if (newEls.length == 0) {
+        return;
+    }
+    targetEl.replaceWith(newEls[0]);
+    let lastEl = newEls[0];
+    for (const element of newEls.slice(1)) {
+        lastEl.after(element);
+        lastEl = element;
+    }
+}
+
+/**
  * Fetches HTML templates from the specified URL.
  *
  * @async

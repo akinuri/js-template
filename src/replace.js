@@ -9,7 +9,7 @@ function replacePlaceholderWithInstance(placeholder) {
     }
     let instance = buildInstanceFromPlaceholder(placeholder);
     if (instance) {
-        placeholder.replaceWith(instance);
+        replaceElement(placeholder, instance);
     }
 }
 
