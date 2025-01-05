@@ -1,15 +1,24 @@
 /**
- * Creates an instance from the template and replaces the placeholder with the instance.
- * @param {Element} placeholder
- * @param {HTMLTemplateElement} template
+ * Replaces a placeholder element with an instance created from the placeholder's template.
+ * 
+ * @param {HTMLElement} placeholder - The placeholder element to be replaced.
  */
 function replacePlaceholderWithInstance(placeholder) {
+    if (!placeholder) {
+        return;
+    }
     let instance = buildInstanceFromPlaceholder(placeholder);
-    if (placeholder && instance) {
+    if (instance) {
         placeholder.replaceWith(instance);
     }
 }
 
+/**
+ * Renders template instances within a given parent element.
+ * If no parent element is provided, defaults to the document body.
+ *
+ * @param {HTMLElement?} parentEl - The parent element to search for placeholders.
+ */
 function renderTemplateInstances(parentEl) {
     parentEl ??= document.body;
     let placeholders = getPlaceholders(parentEl);
