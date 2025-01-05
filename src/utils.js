@@ -18,7 +18,7 @@ function htmlFromString(htmlString, onlyElements = false) {
  * Applies a set of attributes to a given DOM element, with an option to exclude specific attributes.
  *
  * @param {HTMLElement} element - The DOM element to which the attributes will be applied.
- * @param {NamedNodeMap} attributes - Attributes object of an element.
+ * @param {NamedNodeMap} attributes - `attributes` object of an element.
  * @param {Array<string>} [except=[]] - An optional array of attribute names to be excluded from being applied.
  */
 function applyAttributes(element, attributes, except = []) {
