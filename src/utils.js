@@ -79,7 +79,7 @@ async function fetchTemplatesFromUrl(url) {
  *
  * @param {string} url - The URL to fetch the templates from.
  * @param {boolean} [useNewContainer=true] - Whether to use a new container for the templates or append to an existing one.
- * @throws Will throw an error if no .template-container is found when useNewContainer is false.
+ * @throws Will throw an error if no `.template-container` is found when useNewContainer is false.
  */
 async function loadTemplatesFromUrl(url, useNewContainer = true) {
     const html = await fetchTemplatesFromUrl(url);
