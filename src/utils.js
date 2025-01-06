@@ -2,7 +2,7 @@
  * Converts an HTML string into an array of DOM elements.
  *
  * @param {string} htmlString - The HTML string to convert.
- * @returns {Array<Node|HTMLElement>} An array of child nodes/elements of the created DOM element.
+ * @returns {Array<Node|Element>} An array of child nodes/elements of the created DOM element.
  */
 function htmlFromString(htmlString, onlyElements = false) {
     const template = document.createElement("template");
@@ -17,7 +17,7 @@ function htmlFromString(htmlString, onlyElements = false) {
 /**
  * Applies a set of attributes to a given DOM element, with an option to exclude specific attributes.
  *
- * @param {HTMLElement} element - The DOM element to which the attributes will be applied.
+ * @param {Element} element - The DOM element to which the attributes will be applied.
  * @param {NamedNodeMap} attributes - `attributes` object of an element.
  * @param {Array<string>} [except=[]] - An optional array of attribute names to be excluded from being applied.
  */
@@ -37,12 +37,10 @@ function applyAttributes(element, attributes, except = []) {
 /**
  * Replaces a target DOM element with a new set of DOM elements.
  *
- * @param {HTMLElement} targetEl - The target element to be replaced.
+ * @param {Element} targetEl - The target element to be replaced.
  * @param {Array<Element>|Element} newEls - An array of new elements to replace the target element.
  */
 function replaceElement(targetEl, newEls) {
-    // NOTE: used Element instead of HTMLElement to allow for svg elements
-    // TODO: might need to switch to Element in other places as well
     if (!Array.isArray(newEls) && newEls instanceof Element) {
         newEls = [newEls];
     }
@@ -77,6 +75,7 @@ async function fetchTemplatesFromUrl(url) {
 /**
  * Loads HTML templates from a given URL and inserts them into the document.
  *
+ * @async
  * @param {string} url - The URL to fetch the templates from.
  * @param {boolean} [useNewContainer=true] - Whether to use a new container for the templates or append to an existing one.
  * @throws Will throw an error if no `.template-container` is found when useNewContainer is false.

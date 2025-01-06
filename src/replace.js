@@ -3,13 +3,13 @@
  * 
  * @param {HTMLElement} placeholder - The placeholder element to be replaced.
  */
-function replacePlaceholderWithInstance(placeholder) {
-    if (!placeholder) {
+function replacePlaceholderWithInstance(placeholderEl) {
+    if (!placeholderEl) {
         return;
     }
-    let instance = buildInstanceFromPlaceholder(placeholder);
-    if (instance) {
-        replaceElement(placeholder, instance);
+    let instanceEl = buildInstanceFromPlaceholder(placeholderEl);
+    if (instanceEl) {
+        replaceElement(placeholderEl, instanceEl);
     }
 }
 
@@ -22,7 +22,7 @@ function replacePlaceholderWithInstance(placeholder) {
 function renderTemplateInstances(parentEl) {
     parentEl ??= document.body;
     let placeholders = getPlaceholders(parentEl);
-    for (const placeholder of placeholders) {
-        replacePlaceholderWithInstance(placeholder);
+    for (const placeholderEl of placeholders) {
+        replacePlaceholderWithInstance(placeholderEl);
     }
 }
