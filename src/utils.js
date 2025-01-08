@@ -56,43 +56,21 @@ function replaceElement(targetEl, newEls) {
 }
 
 /**
- * Fetches HTML templates from the specified URL.
+ * Fetches HTML content from a given URL.
  *
  * @async
- * @param {string} url - The URL to fetch the templates from.
+ * @param {string} url - The URL to fetch the HTML content from.
  * @returns {Promise<string>} A promise that resolves to the HTML content as a string.
- * @throws Throws an error if the HTTP response is not ok.
+ * @throws Throws an error if the HTTP response is not ok or the content type is not text/html.
  */
-async function fetchTemplatesFromUrl(url) {
+async function fetchHtmlFromUrl(url) {
     const response = await fetch(url);
     if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const html = await response.text();
+    // if (!contentType || !contentType.includes("text/html")) {
+    //     throw new Error("Content type is not text/html.");
+    // }
+    let html = await response.text();
     return html;
-}
-
-/**
- * Loads HTML templates from a given URL and inserts them into the document.
- *
- * @async
- * @param {string} url - The URL to fetch the templates from.
- * @param {boolean} [useNewContainer=true] - Whether to use a new container for the templates or append to an existing one.
- * @throws Will throw an error if no `.template-container` is found when useNewContainer is false.
- */
-async function loadTemplatesFromUrl(url, useNewContainer = true) {
-    const html = await fetchTemplatesFromUrl(url);
-    if (useNewContainer) {
-        const container = document.createElement("div");
-        container.hidden = true;
-        container.classList.add("template-container");
-        container.innerHTML = html;
-        document.body.append(container);
-    } else {
-        const container = document.querySelector(".template-container");
-        if (!container) {
-            throw new Error("No .template-container found.");
-        }
-        container.innerHTML += html;
-    }
 }

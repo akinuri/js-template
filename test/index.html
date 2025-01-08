@@ -125,7 +125,11 @@
     <script>
         window.addEventListener("load", async () => {
 
-            await loadTemplatesFromUrl("/test/templates.html.tpl");
+            document.body.append(
+                ...htmlFromString(
+                    await fetchHtmlFromUrl("/test/templates.html.tpl")
+                )
+            );
 
             templates = getTemplates();
             console.log("templates:", templates);
