@@ -13,21 +13,31 @@
 
 <body class="bg-slate-100 p-6">
 
-    <div class="flex gap-4 p-4 rounded border border-dashed border-slate-500">
+    <div class="flex gap-4 items-center p-4 rounded border border-dashed border-slate-500">
 
-        <div data-template="mybutton">
+        <div data-template-name="svg-plus"></div>
+
+        <div data-template="svg-eye"></div>
+
+        <svg-pen></svg-pen>
+
+    </div>
+
+    <div class="flex gap-4 items-center p-4 rounded border border-dashed border-slate-500 mt-6">
+
+        <div data-template-name="mybutton">
             <svg-plus></svg-plus> Add
         </div>
 
         <div
-            data-template="mybutton"
+            data-template-name="mybutton"
             class="!bg-yellow-400/50 hover:!bg-yellow-400/75 active:!bg-yellow-400/90"
         >
             <svg-eye></svg-eye> View
         </div>
 
         <div
-            data-template-name="mybutton"
+            data-template="mybutton"
             class="!bg-blue-300 hover:!bg-blue-400/75 active:!bg-blue-400/90"
         >
             <svg-pen></svg-pen> Edit
@@ -54,7 +64,7 @@
         ></mylist>
 
         <mylist class="!bg-cyan-200/80">
-            <p class="mt-4">It has no passed items.</p>
+            <p class="mt-4">This has no passed items.</p>
         </mylist>
 
     </div>
