@@ -147,12 +147,12 @@
     <div class="card bg-white shadow rounded">
         <div class="bg-slate-400/30 rounded-tr rounded-tl px-4 py-2 border-b border-b-slate-300/50">
             <div class="flex gap-4 justify-between">
-                <h2>{{ slot.title }}</h2>
+                <h2>{{ title }}</h2>
                 <div class="flex gap-2">
-                    {{ slot.actions }}
+                    {{ actions }}
                 </div>
             </div>
         </div>
-        <div class="p-4">{{ slot.body }}</div>
+        <div class="p-4">{{ body }}</div>
     </div>
 </template>

@@ -55,10 +55,9 @@ function buildInstanceFromPlaceholder(placeholderEl) {
             console.error("Error parsing JSON data:", e);
         }
     }
-    let content = placeholderEl.innerHTML;
-    let slot = getPlaceholderSlots(placeholderEl);
-    data.content = content;
-    data.slot = slot;
+    data.content = placeholderEl.innerHTML;
+    let props = getPlaceholderContentProps(placeholderEl);
+    data = { ...data, ...props };
     let templateName = getPlaceholderTemplateName(placeholderEl);
     let instance = buildInstanceFromTemplateName(templateName, data, placeholderEl.attributes);
     return instance;
@@ -77,20 +76,20 @@ function buildInstanceFromTemplateName(templateName, data = {}, attributes = {})
 }
 
 /**
- * Extracts and returns the content of named slots from a given placeholder element.
+ * Extracts and returns the content of named props from a given placeholder element.
  *
- * @param {HTMLElement} placeholderEl - The placeholder element containing the slots.
- * @returns {object} An object where the keys are the slot names and the values are the slot contents.
+ * @param {HTMLElement} placeholderEl - The placeholder element containing the props.
+ * @returns {object} An object where the keys are the prop names and the values are the prop contents.
  */
-function getPlaceholderSlots(placeholderEl) {
-    let slots = {};
-    let slotEls = placeholderEl.querySelectorAll(":scope > slot[data-name]:not([data-name=''])");
-    for (const slotEl of slotEls) {
-        let slot = {
-            name: slotEl.dataset.name,
-            content: slotEl.innerHTML.trim(),
+function getPlaceholderContentProps(placeholderEl) {
+    let props = {};
+    let propEls = placeholderEl.querySelectorAll(":scope > prop[data-name]:not([data-name=''])");
+    for (const propEl of propEls) {
+        let prop = {
+            name: propEl.dataset.name,
+            content: propEl.innerHTML.trim(),
         };
-        slots[slot.name] = slot.content;
+        props[prop.name] = prop.content;
     }
-    return slots;
+    return props;
 }

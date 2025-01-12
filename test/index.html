@@ -62,8 +62,8 @@
     <div class="flex gap-4 p-4 rounded border border-dashed border-slate-500 mt-6">
 
         <card>
-            <slot data-name="title">Colors</slot>
-            <slot data-name="actions">
+            <prop data-name="title">Colors</prop>
+            <prop data-name="actions">
                 <button onclick="this.closest('.card').remove()">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -80,19 +80,19 @@
                         />
                     </svg>
                 </button>
-            </slot>
-            <slot data-name="body">
+            </prop>
+            <prop data-name="body">
                 <ul class="list-disc pl-6">
                     <li>red</li>
                     <li>green</li>
                     <li>blue</li>
                 </ul>
-            </slot>
+            </prop>
         </card>
 
         <card>
-            <slot data-name="title">Random</slot>
-            <slot data-name="actions">
+            <prop data-name="title">Random</prop>
+            <prop data-name="actions">
                 <button onclick="this.closest('.card').remove()">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -109,14 +109,14 @@
                         />
                     </svg>
                 </button>
-            </slot>
-            <slot data-name="body">
+            </prop>
+            <prop data-name="body">
                 <ul class="list-disc pl-6">
                     <li>foo</li>
                     <li>bar</li>
                     <li>baz</li>
                 </ul>
-            </slot>
+            </prop>
         </card>
 
     </div>
