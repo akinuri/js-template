@@ -13,7 +13,7 @@ function buildInstanceFromTemplate(templateEl, data = {}, attributes = {}) {
     let templateString = templateEl.content.firstElementChild.outerHTML;
     templateString = templateString.replaceAll("&gt;", ">");
     templateString = templateString.replaceAll("&lt;", "<");
-    templateString = replaceTemplateExpressions(templateString, data);
+    templateString = renderTemplateExpressions(templateString, data);
     let instance = htmlFromString(templateString, true)[0];
     if (isPlaceholder(instance)) {
         instance = buildInstanceFromPlaceholder(instance);

@@ -1,11 +1,11 @@
 /**
- * Renders the expressions in the template string.
+ * Replaces the expressions in a template string with their resolved values.
  *
  * @param {string} templateString Raw HTML string with expressions.
  * @param {object} [data={}] Key-value pairs to be used in the expressions. The keys are the variable names and the values are their corresponding values.
  * @returns {*} The processed HTML string with expressions replaced.
  */
-function replaceTemplateExpressions(templateString, data = {}) {
+function renderTemplateExpressions(templateString, data = {}) {
     let expressionPattern = /{{\s*(.*?)\s*}}/gs;
     return templateString.replace(expressionPattern, (match, expression) => {
         let ob = new OutputBuffer();

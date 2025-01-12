@@ -139,7 +139,7 @@
 
             console.log("evaluate:", evaluateExpression("(num_1 / num_2).toFixed(2)", { num_1: 12, num_2: 34 }));
 
-            console.log("replace:", replaceTemplateExpressions("The result is: {{ (num_1 / num_2).toFixed(2) }}", { num_1: 12, num_2: 34 }));
+            console.log("replace:", renderTemplateExpressions("The result is: {{ (num_1 / num_2).toFixed(2) }}", { num_1: 12, num_2: 34 }));
 
             for (const templateName in templates) {
                 placeholders = getPlaceholdersByTemplateName(templateName);
