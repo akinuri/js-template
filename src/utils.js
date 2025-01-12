@@ -22,7 +22,7 @@ function htmlFromString(htmlString, onlyElements = false) {
  * @param {Array<string>} [except=[]] - An optional array of attribute names to be excluded from being applied.
  */
 function applyAttributes(element, attributes, except = []) {
-    for (const attr of attributes) {
+    for (const attr of Object.values(attributes)) {
         if (except.includes(attr.name)) {
             continue;
         }
