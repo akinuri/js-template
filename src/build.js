@@ -10,9 +10,7 @@ function buildInstanceFromTemplate(templateEl, data = {}, attributes = {}) {
     if (!templateEl) {
         return null;
     }
-    let templateString = templateEl.content.firstElementChild.outerHTML;
-    templateString = templateString.replaceAll("&gt;", ">");
-    templateString = templateString.replaceAll("&lt;", "<");
+    let templateString = getTemplateString(templateEl);
     templateString = renderTemplateExpressions(templateString, data);
     let instance = htmlFromString(templateString, true)[0];
     if (isPlaceholder(instance)) {
@@ -21,6 +19,22 @@ function buildInstanceFromTemplate(templateEl, data = {}, attributes = {}) {
     applyAttributes(instance, attributes);
     renderTemplateInstances(instance);
     return instance;
+}
+
+/**
+ * Extracts the outer HTML of the first element child of a template element's content.
+ * Also does some processing.
+ *
+ * @param {HTMLTemplateElement} templateEl - The template element from which to extract the string.
+ * @returns {string} The processed template string.
+ */
+function getTemplateString(templateEl) {
+    let templateString = templateEl.content.firstElementChild.outerHTML;
+    // < and > in the JS context (i.e. {{ block }}) are espcated to &lt; and &gt;
+    // we need to convert them back to < and >
+    templateString = templateString.replaceAll("&gt;", ">");
+    templateString = templateString.replaceAll("&lt;", "<");
+    return templateString;
 }
 
 /**
